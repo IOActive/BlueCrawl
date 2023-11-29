@@ -192,36 +192,36 @@ _device_t._bond="";
 
 function infoCursor(){
 
-	return "\033[2m";
+	return "\x1b[2m";
 }
 function lightGrayCursor(){
-	return "\033[37m";
+	return "\x1b[37m";
 }
 			
 function lightGreenCursor(){
-	return "\033[92m";
+	return "\x1b[92m";
 }
 function greenCursor(){
-	return "\033[32m";
+	return "\x1b[32m";
 }
 
 function lightCyanCursor(){
-	return "\033[96m"
+	return "\x1b[96m"
 }
 function lightBlueCursor(){
-	return "\033[94m"
+	return "\x1b[94m"
 }
 function cyanCursor(){
-	return "\033[36m"
+	return "\x1b[36m"
 }
 function blueCursor(){
-	return "\033[34m"
+	return "\x1b[34m"
 }
 function closeCursor(){
-	return "\033[0m"
+	return "\x1b[0m"
 } 
 
-_device_list = [] //array of _device_t objects
+var _device_list = [] //array of _device_t objects
 
 function add_new_device(_device_instance){
 
@@ -459,7 +459,7 @@ function bluetoothSocketInfo(_socket_instance){
 		var _connectionType = _bluetoothSocket.getConnectionType();
 		var _remoteDevice = _bluetoothSocket.getRemoteDevice();
 		
-		spaces = 20;
+		let spaces = 20;
 		console.log("[*]\t"+lightGreenCursor()+"- isConnected"+make_spaces("- Connected".length,spaces)+closeCursor()+":"+_isConnected); //add different colors for each connected state
 		console.log("[*]\t"+lightGreenCursor()+"- connection type"+make_spaces("- Connection Type".length,spaces)+closeCursor()+":"+bluetoothConnectionTypeInfo(_connectionType)); //different colors for connection state would be cool too
 
@@ -506,7 +506,7 @@ function bluetoothDeviceInfo(_device_instance){
 
 	//setPin and other fun still awaits	 - for now sticking to just simple reporting
 	_bluetoothDevice = _device_instance;
-	spaces = 16;
+	let spaces = 16;
 
 	console.log("[*]"+blueCursor()+"\t- Name"+closeCursor()+make_spaces("- Name".length,spaces)+":"+_bluetoothDevice.getName());
 	console.log("[*]"+blueCursor()+"\t- Address"+closeCursor()+make_spaces("- Address".length,spaces)+":"+_bluetoothDevice.getAddress());
@@ -528,7 +528,7 @@ Basic work flow for Frida and android is:
 	Also allows consultants to see the data being pushed out from the app.
 
 **/
-VERSION="1.0.0"
+var VERSION="1.0.0"
 setTimeout(function(){
 	Java.perform(function(){
 		console.log("\n ---------- BlueCrawl : Bluetooth Metadata collector");
@@ -550,9 +550,8 @@ setTimeout(function(){
 					console.log("[*] "+infoCursor()+" 	android.bluetooth.BluetoothGattServer instance found"+closeCursor()+" :=> '"+instance+"'");
 					bluetoothGattServerInfo(instance);
 
-					/* add_new_device(p_name,p_address,p_class,p_type,p_bond);
-				      add_new_device(instance); 
-					*/				
+					// add_new_device(p_name,p_address,p_class,p_type,p_bond);
+				    // add_new_device(instance); 
 				},
 				onComplete: function() { console.log("[*] -----");}
 			});
@@ -562,9 +561,9 @@ setTimeout(function(){
 					console.log("[*] "+infoCursor()+" 	android.bluetooth.BluetoothGattService instance found"+closeCursor()+" :=> '"+instance+"'");
 					bluetoothGattServiceInfo(instance);
 
-					/* add_new_device(p_name,p_address,p_class,p_type,p_bond);
-				      add_new_device(instance); 
-					*/				
+					// add_new_device(p_name,p_address,p_class,p_type,p_bond);
+				    // add_new_device(instance); 
+
 				},
 				onComplete: function() { console.log("[*] -----");}
 			});
